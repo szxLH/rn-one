@@ -1,5 +1,6 @@
 import {createStore, applyMiddleware} from 'redux'
-import thunk from 'react-thunk'
+import thunk from 'redux-thunk'
+import React from 'react'
 import {reducers, initState} from './reducers'
 
 const enhancer = applyMiddleware(thunk)

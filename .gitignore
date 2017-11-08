@@ -22,8 +22,7 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
-# 
-ios/IntelliJ
+# Android/IntelliJ
 #
 build/
 .idea
@@ -52,6 +51,5 @@ buck-out/
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
-
 android
 ios

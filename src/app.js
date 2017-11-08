@@ -1,31 +1,37 @@
 import React, { Component } from 'react';
-// import {Provider} from 'react-redux'
 import {
-  Navigator,
+  Text, View
+} from 'react-native'
+import {Provider} from 'react-redux'
+import {
+  Navigator
 } from 'react-native-deprecated-custom-components';
-import Movies from './Movies';
-
-// const RouteMapper = (route, navigator) => {
-//   if (route.name === 'movies') {
-//     return <Movies navigator={navigator} />;
-//   }
-// };
+import Home from './home';
+import store from './store'
 
 export default class App extends Component {
   render() {
     return (
-      // {<Provider store={store}>}
+      <Provider store={store}>
         <Navigator
-          // Default to movies route
-          initialRoute={{component: Movies}}
-          // Use FloatFromBottom transition between screens
+          initialRoute={{component: Home}}
           configureScene={(route, routeStack) => Navigator.SceneConfigs.FloatFromBottom}
-          // Pass a route mapper functions
           renderScene={(route, navigator) => {
             return <route.component {...route.args} navigator={navigator} />
           }}
         />
-      // </Provider>
+      </Provider>
     );
   }
 }
+
+// import React, { Component } from 'react';
+// import {View, Text} from 'react-native'
+
+// export default class App extends Component {
+//   render () {
+//     return (
+//       <View><Text>dfasfa</Text></View>
+//     )
+//   }
+// }
