@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
+import {Provider} from 'react-redux'
 import {
   Text, View
 } from 'react-native'
-import {Provider} from 'react-redux'
 import {
   Navigator
 } from 'react-native-deprecated-custom-components';
-import Home from './home';
+import Main from './views';
 import store from './store'
 
 export default class App extends Component {
@@ -14,7 +14,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <Navigator
-          initialRoute={{component: Home}}
+          initialRoute={{component: Main}}
           configureScene={(route, routeStack) => Navigator.SceneConfigs.FloatFromBottom}
           renderScene={(route, navigator) => {
             return <route.component {...route.args} navigator={navigator} />
@@ -24,14 +24,3 @@ export default class App extends Component {
     );
   }
 }
-
-// import React, { Component } from 'react';
-// import {View, Text} from 'react-native'
-
-// export default class App extends Component {
-//   render () {
-//     return (
-//       <View><Text>dfasfa</Text></View>
-//     )
-//   }
-// }

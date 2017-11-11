@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native'
-import {defaultStyles} from './styles'
+import {defaultStyles} from '../assets/styles'
 const { width, height } = Dimensions.get('window')
 const cols = 3, rows = 3
 
