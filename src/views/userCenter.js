@@ -32,7 +32,6 @@ class UserCenter extends React.Component {
     navigator.push({
       component: Login
     })
-    console.log('center user====', navigator)
   }
 
   renderLoginList () {
