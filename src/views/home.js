@@ -6,14 +6,17 @@ import {
   StyleSheet,
   ScrollView
 } from 'react-native'
+// import {Button} from 'antd-mobile'
 import {defaultStyles} from '../assets/styles'
 import Swiper from '../components/swiper'
+import Header from '../components/header'
 
 class Home extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      dataSource: []
+      dataSource: [],
+      header: {}
     }
   }
   componentDidMount () {
@@ -35,13 +38,42 @@ class Home extends React.Component {
           image: 'dnav',
           title: '美女4'
         }
-      ]
+      ],
+      header: {
+        left: {
+          option: {
+            text: '首页',
+            handle: () => {}
+          },
+          type: 'text',
+          // type: 'navigation',
+        },
+        center: {
+          option: [{
+            text: '正在热映',
+            handle: () => {}
+          }, {
+            text: '即将上映',
+            handle: () => {}
+          }],
+          type: 'switch'
+        },
+        right: {
+          option: {
+            text: '城市选择',
+            handle: () => {}
+          },
+          type: 'text'
+        }
+      }
     })  
   }
   render () {
     return (
       <View style={[styles.container, defaultStyles.pageContainer]}>
+        <Header header={this.state.header}/>
         <Swiper dataSource={this.state.dataSource}/>
+        {/* <Button>fdasf</Button> */}
       </View>
     )
   }

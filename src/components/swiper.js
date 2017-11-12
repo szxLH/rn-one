@@ -32,7 +32,7 @@ export default class Swiper extends Component {
   startAutoScroll () {
     let index = this.state.current
     index++
-    if (index > this.props.dataSource.length) {
+    if (index === this.props.dataSource.length) {
       index = 0
     }
     this.setState({current: index})
@@ -114,16 +114,16 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontSize: 15,
     position: 'absolute',
-    backgroundColor: 'rgba(0,0,0,.75)',
+    backgroundColor: 'rgba(0,0,0,.5)',
     width: width,
     bottom: 0,
-    padding: 8
+    paddingVertical: 3,
+    paddingHorizontal: 10
   },
   pagination: {
     position: 'absolute',
-    bottom: 45,
+    bottom: 30,
     width: width,
     flexDirection: 'row',
     justifyContent: 'center'
