@@ -1,11 +1,13 @@
 import React from 'react'
+import {SegmentedControl,Icon} from 'antd-mobile'
+import {blueColor} from '../assets/styles'
+import {px2dp} from '../utils'
 import {
   View,
   Text,
   StyleSheet,
+  TouchableOpacity
 } from 'react-native'
-import {defaultStyles} from '../assets/styles'
-import px2dp from '../utils/px2dp'
 
 export default class Header extends React.Component {
   constructor (props) {
@@ -17,28 +19,44 @@ export default class Header extends React.Component {
  
   renderLeft () {
     const {left} = this.props.header
-    return (
-      <Text style={defaultStyles.mainColor}>{left && left.option ? left.option.text : ''}</Text>
-    )
+    if (left) {
+      if (typeof left === 'string') {
+        return <Text style={styles.leftText}><Icon type='left' color={blueColor}/>{left}</Text>
+      } else {
+        return (
+          <TouchableOpacity style={styles.leftView} onPress={left.option.handle}>
+            <Icon type='left' color={blueColor}/>
+            <Text style={styles.leftText}>{left.option.text}</Text>
+          </TouchableOpacity>
+        )
+      }
+    }
   }
   renderCenter () {
     const {center} = this.props.header
-    switch (center && center.type) {
-      case 'switch':
-        return (
-          center.option.map(op => {
-            return <Text>{op.text}</Text>
-          })
-        )
-      default:
-        return null
+    if (center) {
+      if (typeof center === 'string') {
+        return <Text style={styles.centerText}>{center}</Text>
+      } else {
+        if (center.type === 'switch') {
+          return <SegmentedControl values={center.option.map(op => op.text)} style={styles.switch}/>
+        }
+      }
     }
   }
   renderRight () {
     const {right} = this.props.header
-    return (
-      <Text>{right && right.option ? right.option.text : ''}</Text>
-    )
+    if (right) {
+      if (typeof right === 'string') {
+        return <Text style={styles.rightText}>{right}</Text>
+      } else {
+        return (
+          <TouchableOpacity onPress={right.option.handle}>
+            <Text style={styles.rightText}>{right.option.text}</Text>
+          </TouchableOpacity>
+        )
+      }
+    }
   }
   render () {
     return (
@@ -58,7 +76,11 @@ Header.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    padding: px2dp(12)
+    // padding: px2dp(12),
+    paddingHorizontal: px2dp(10),
+    backgroundColor: '#fff',
+    height: px2dp(36),
+    alignItems: 'center'
   },
   left: {
     flex: 1
@@ -69,6 +91,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   right: {
-    flex: 1
+    flex: 1,
+  },
+  switch: {
+    width: px2dp(120),
+    height: 30,
+  },
+  leftView: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  leftText: {
+    color: blueColor,
+    fontSize: 16
+  },
+  centerText: {
+    color: blueColor,
+    fontSize: 16,
+  },
+  rightText: {
+    textAlign: 'right',
+    color: blueColor,
+    fontSize: 16,
   }
 })

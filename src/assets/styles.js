@@ -1,13 +1,17 @@
-import px2dp from '../utils/px2dp'
+import {px2dp, deviceHeightDp} from '../utils'
+
+export const grayColor = '#b2b0bf'
+export const bgColor = '#f3f3f3'
+export const blueColor = '#1083e6'
+
 export const defaultStyles = {
   pageContainer: {
-    paddingTop: px2dp(15),
-    paddingBottom: px2dp(50)
+    marginTop: px2dp(15),
+    paddingBottom: px2dp(50),
+    backgroundColor: bgColor,
+    height: deviceHeightDp
   },
   text: {
     fontFamily: 'Avenir',
-  },
-  mainColor: {
-    color: '#1083e6'
   }
 }

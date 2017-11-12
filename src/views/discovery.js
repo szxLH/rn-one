@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
+import {px2dp} from '../utils'
+import { movies } from '../data'
+import {defaultStyles} from '../assets/styles'
+import Poster from '../components/poster'
+import Popup from '../components/popup'
 import {
   View,
   ScrollView,
   Text,
   StyleSheet
 } from 'react-native'
-import px2dp from '../utils/px2dp'
-import { movies } from '../data'
-import {defaultStyles} from '../assets/styles'
-import Poster from '../components/poster'
-import Popup from '../components/popup'
 
 class Discovery extends Component {
   constructor (props) {

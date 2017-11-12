@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {deviceWidthDp} from '../utils'
 import {
   ScrollView,
   View,
@@ -10,7 +11,6 @@ import {
   AlertIOS
 } from 'react-native'
 
-const {width} = Dimensions.get('window')
 const duration = 5000
 
 export default class Swiper extends Component {
@@ -32,15 +32,15 @@ export default class Swiper extends Component {
   startAutoScroll () {
     let index = this.state.current
     index++
-    if (index === this.props.dataSource.length) {
+    if (index === this.props.swiperData.length) {
       index = 0
     }
     this.setState({current: index})
-    this.refs.scroll.scrollTo({x: index * width, animated: true})
+    this.refs.scroll.scrollTo({x: index * deviceWidthDp, animated: true})
   }
 
   renderViews () {
-    const data = this.props.dataSource || []
+    const data = this.props.swiperData || []
     return (
       data.map(row => {
         return (
@@ -55,12 +55,12 @@ export default class Swiper extends Component {
 
   handleClickBar(index) {
     const oContainer = this.refs.scroll
-    oContainer.scrollTo({x: index * width, animated: true})
+    oContainer.scrollTo({x: index * deviceWidthDp, animated: true})
     this.setState({current: index})
   }
 
   renderPagination () {
-    const data = this.props.dataSource || []
+    const data = this.props.swiperData || []
     return (
       <View style={styles.pagination}>
         { 
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     height: 150,
   },
   view: {
-    width: width,
+    width: deviceWidthDp,
     backgroundColor: 'rgba(0,0,0,.2)',
   },
   image: {
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     position: 'absolute',
     backgroundColor: 'rgba(0,0,0,.5)',
-    width: width,
+    width: deviceWidthDp,
     bottom: 0,
     paddingVertical: 3,
     paddingHorizontal: 10
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   pagination: {
     position: 'absolute',
     bottom: 30,
-    width: width,
+    width: deviceWidthDp,
     flexDirection: 'row',
     justifyContent: 'center'
   },
@@ -138,5 +138,5 @@ const styles = StyleSheet.create({
 })
 
 Swiper.propTypes = {
-  dataSource: React.PropTypes.array
+  swiperData: React.PropTypes.array
 }

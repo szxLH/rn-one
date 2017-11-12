@@ -1,6 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import TabNavigator from 'react-native-tab-navigator'
+// import {login} from '../store/actions'
+import Hot from './hot'
+import Discovery from './discovery'
+import Cinema from './cinema'
+import UserCenter from './userCenter'
+import { navConfigs } from '../data'
+import {px2dp} from '../utils'
 import {
   View,
   ScrollView,
@@ -8,37 +15,27 @@ import {
   StyleSheet,
   Platform
 } from 'react-native'
-// import {login} from '../store/actions'
-import Home from './home'
-import Discovery from './discovery'
-import Collection from './collection'
-import More from './more'
-import { navConfigs } from '../config'
-import px2dp from '../utils/px2dp'
 
 class Main extends Component {
   constructor (props) {
     super(props)
-    console.log('Home===', Home)
     this.state = {
-      selected: 'home'
+      selected: 'userCenter'
     }
   }
 
-  componentDidMount () {
-  }
-
   renderNav (nav) {
+    const {navigator} = this.props
     const renderNavTab = (com) => {
       switch (nav.component) {
-        case 'Home':
-          return <Home />
+        case 'Hot':
+          return <Hot navigator={navigator}/>
         case 'Discovery':
-          return <Discovery />
-        case 'Collection':
-          return <Collection />
-        case 'More':
-          return <More />
+          return <Discovery navigator={navigator}/>
+        case 'Cinema':
+          return <Cinema navigator={navigator}/>
+        case 'UserCenter':
+          return <UserCenter navigator={navigator}/>
       }
     }
     return (
@@ -70,10 +67,6 @@ class Main extends Component {
 }
 
 const styles = StyleSheet.create({
-  // container: {
-  //   paddingTop: 20,
-  //   flex: 1,
-  // },
   tabBarStyle: {
     height: px2dp(45),
     alignItems: 'center',
@@ -83,10 +76,6 @@ const styles = StyleSheet.create({
     height: px2dp(50),
     backgroundColor: 'red'
   }
-  // scrollContainer: {
-  //   flexDirection: 'row',
-  //   flexWrap: 'wrap'
-  // }
 })
 
 const mapStateToProps = (state, xxx) => {

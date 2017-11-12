@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import {deviceHeightDp, deviceWidthDp} from '../utils'
+import { defaultStyles } from '../assets/styles'
 import {
   Animated,
-  Dimensions,
   Image,
   LayoutAnimation,
   PanResponder,
@@ -10,13 +11,10 @@ import {
   TouchableHighlight,
   TouchableWithoutFeedback,
   View
-} from 'react-native';
-import { defaultStyles } from '../assets/styles';
+} from 'react-native'
 
-// Get screen dimensions
-const { width, height } = Dimensions.get('window');
 // Set default popup height to 67% of screen height
-const defaultHeight = height * 0.67;
+const defaultHeight = deviceHeightDp * 0.67;
 
 export default class MoviePopup extends Component {
 
@@ -40,7 +38,7 @@ export default class MoviePopup extends Component {
 
   state = {
     // Animates slide ups and downs when popup open or closed
-    position: new Animated.Value(this.props.isOpen ? 0 : height),
+    position: new Animated.Value(this.props.isOpen ? 0 : deviceHeightDp),
     // Backdrop opacity
     opacity: new Animated.Value(0),
     // Popup height that can be changed by pulling it up or down
@@ -81,7 +79,7 @@ export default class MoviePopup extends Component {
         LayoutAnimation.easeInEaseOut();
 
         // Switch to expanded mode if popup pulled up above 80% mark
-        if (newHeight > height - height / 5) {
+        if (newHeight > deviceHeightDp - deviceHeightDp / 5) {
           this.setState({ expanded: true });
         } else {
           this.setState({ expanded: false });
@@ -91,7 +89,7 @@ export default class MoviePopup extends Component {
         if (vy < -0.75) {
           this.setState({
             expanded: true,
-            height: height
+            height: deviceHeightDp
           });
         }
 
@@ -104,8 +102,8 @@ export default class MoviePopup extends Component {
           this.props.closeMovie();
         }
         // Limit max height to screen height
-        else if (newHeight > height) {
-          this.setState({ height: height });
+        else if (newHeight > deviceHeightDp) {
+          this.setState({ height: deviceHeightDp });
         }
         else {
           this.setState({ height: newHeight });
@@ -170,7 +168,7 @@ export default class MoviePopup extends Component {
       ),
       // Slide down
       Animated.timing(
-        this.state.position, { toValue: height } // bottom of the screen
+        this.state.position, { toValue: deviceHeightDp } // bottom of the screen
       ),
     ]).start(() => this.setState({
       // Reset to default values
@@ -184,7 +182,7 @@ export default class MoviePopup extends Component {
   getStyles = () => {
     return {
       imageContainer: this.state.expanded ? {
-        width: width / 2,         // half of screen widtj
+        width: deviceWidthDp / 2,         // half of screen widtj
       } : {
         maxWidth: 110,            // limit width
         marginRight: 10,
