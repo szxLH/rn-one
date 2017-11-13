@@ -7,6 +7,7 @@
 import {
   AppRegistry
 } from 'react-native';
-import App from './src/app'
+//import App from './src/app'
+import App from './src/components/githubNav'
 
 AppRegistry.registerComponent('myapp', () => App);

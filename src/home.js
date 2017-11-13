@@ -4,28 +4,26 @@ import {
   View,
   ScrollView,
   Text,
-  StyleSheet
+  StyleSheet,
+  Alert
 } from 'react-native'
+import NavTab from './components/navTab'
 import {login} from './store/actions'
-
 class Movies extends Component {
   constructor (props) {
     super(props)
   }
 
-  componentDidMount () {
-    console.log(1)
-    setTimeout(() => {
-      console.log(2)
-    }, 3000)
-    this.props.dispatch(login())
+  componentDidMount() {
+    
   }
-
+  
   render () {
     return (
       <View style={styles.container}>
         <View style={[{height: 100, backgroundColor: '#f00'}, this.props.isLoading ? null : {display: 'none'}]}></View>
-        <Text>1231231</Text>
+        <Text>aaa</Text>
+        <NavTab />
       </View>
     )
   }

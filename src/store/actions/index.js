@@ -24,35 +24,15 @@ export function loginFailure (error) {
 }
 
 export function login () {
-
-
   return function (dispatch) {
     dispatch(loginLoading(true))
-    console.log('0000==')
-    
-    setTimeout(function () {
-    console.log('1111==')
-      // fetch('http://localhost:3000/login')
-      //   .then(res => {
-      //     dispatch(loginLoading(false))
-      //     dispatch(loginSuccess(res))
-      //   }, err => {
-      //     // console.log('11111==')
-      //     // wait().then(a => {
-      //       // console.log('2222==')
-      //       dispatch(loginLoading(false))
-      //       dispatch(loginFailure(err))
-      //     // })
-      //   })
-    }, 3000)
+    fetch('http://localhost:3000/login')
+      .then(res => {
+        dispatch(loginLoading(false))
+        dispatch(loginSuccess(res))
+      }, err => {
+        dispatch(loginLoading(false))
+        dispatch(loginFailure(err))
+      })
   }
 }
-
-// function wait () {
-//   return new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//       console.log('over')
-//       resolve(1)
-//     }, 3000)
-//   })
-// }
