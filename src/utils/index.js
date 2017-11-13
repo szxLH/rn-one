@@ -1,6 +1,9 @@
 import {Dimensions} from 'react-native'
 import {baseUrl, timeout} from '../config'
 import axios from 'axios'
+
+// axios.defaults.xsrfHeaderName = "X-CSRFToken"
+
 export const deviceHeightDp = Dimensions.get('window').height
 
 export const deviceWidthDp = Dimensions.get('window').width
@@ -11,44 +14,37 @@ export function px2dp(uiElementPx) {
   return uiElementPx *  deviceHeightDp / uiHeightPx
 }
 
-export function fetchGet (path) {
-  return new Promise((resolve, reject) => {
-    fetch({
-      method: 'GET',
-      url: `${baseUrl}${path}`
-    }, (response) => {
-      if (response.status == 200) {
-        resolve(response.data)
-      }
-      else {
-        reject(response)
-      }
-    }, () => {})
+export function httpGet (path) {
+  return axios.get(`${baseUrl}${path}`, {
+    headers: {
+      'Accept': 'application/json',
+      // 'x-csrf-token': Cookie.get('csrfToken')
+    },
+    timeout
+  })
+  .then(function (response) {
+    console.log('response====', response)
+    return response.data
+  })
+  .catch(function (error) {
+    console.log(error);
   })
 }
 
-export function fetchPost (path, body) {
-  return axios.post({
-    url: path,
-    baseURL: baseUrl,
-    data: body,
+export function httpPost (path, body) {
+  return axios.post(`${baseUrl}${path}`, {
+    data: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json', 
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      // 'x-csrf-token': Cookie.get('csrfToken')
     },
     timeout
-  }).then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-}
-
-export function testPromise () {
-  return new Promise((resolve, reject) => {
-    setTimeout(function () {
-      resolve({code: 1})
-    }, 1000)
+  })
+  .then(function (response) {
+    return response.data
+  })
+  .catch(function (error) {
+    console.log(error);
   })
 }
