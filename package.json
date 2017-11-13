@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "server": "cd server && node index"
+    "server": "cd server && npm run dev"
   },
   "dependencies": {
     "antd-mobile": "^2.0.3",
@@ -24,6 +24,7 @@
     "babel-plugin-import": "^1.6.2",
     "babel-preset-react-native": "4.0.0",
     "jest": "21.2.1",
+    "js-cookie": "^2.2.0",
     "react-test-renderer": "16.0.0-alpha.6",
     "redux-logger": "^3.0.6"
   },
