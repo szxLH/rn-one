@@ -11,9 +11,16 @@ module.exports = appInfo => {
 
   config.security = {
     csrf: {
-      // enable: false
-      headerName: 'x-csrf-token',
-    }
+      enable: false,
+      // headerName: 'x-csrf-token',
+    },
+  };
+
+  config.jwt = {
+    screct: 'szxlh',
+    enable: true,
+    // match: '',
+    ignore: '/user/post',
   };
 
   return config;

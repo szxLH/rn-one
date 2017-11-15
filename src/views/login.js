@@ -15,7 +15,9 @@ import {
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  Alert,
+  AsyncStorage
 } from 'react-native'
 
 export default class Login extends React.Component {
@@ -43,9 +45,13 @@ export default class Login extends React.Component {
   async handleLogin () {
     const {name, password} = this.state
     this.setState({loading: true})
-    await login({
-      name, password
-    })
+    try {
+      const res = await login({ name, password })
+      console.log('res===', res)
+      // AsyncStorage.getItem('isLogin')
+    } catch (e) {
+      Alert.alert(e.message)
+    }
   }
   render () {
     const {name, password, loading} = this.state
