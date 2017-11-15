@@ -1,6 +1,15 @@
 import {httpGet, httpPost} from '../utils'
-export async function login (user) {
+export function login (user) {
   const url = '/user/login'
-  const res = await httpPost(url, user)
-  console.log('res===', res)
+  return httpPost(url, user)
+}
+
+export function getList (header) {
+  const url = '/list'
+  return httpGet(url, header)
+}
+
+export function patchList () {
+  const url = '/list'
+  return httpPost(url, {id: 2})
 }

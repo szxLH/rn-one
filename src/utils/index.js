@@ -14,10 +14,12 @@ export function px2dp(uiElementPx) {
   return uiElementPx *  deviceHeightDp / uiHeightPx
 }
 
-export function httpGet (path) {
+export function httpGet (path, header) {
+  console.log('header====', header)
   return axios.get(`${baseUrl}${path}`, {
     headers: {
       'Accept': 'application/json',
+      'Authorization': 'Bearer ' + header.token
       // 'x-csrf-token': Cookie.get('csrfToken')
     },
     timeout

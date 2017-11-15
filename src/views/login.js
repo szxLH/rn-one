@@ -5,7 +5,7 @@ import {defaultStyles} from '../assets/styles'
 import {px2dp} from '../utils'
 import {blueColor} from '../assets/styles'
 import {deviceWidthDp} from '../utils'
-import {login} from '../service/user'
+import * as UserService from '../service/user'
 import {
   List,
   Button,
@@ -15,7 +15,9 @@ import {
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  Alert,
+  AsyncStorage
 } from 'react-native'
 
 export default class Login extends React.Component {
@@ -43,9 +45,13 @@ export default class Login extends React.Component {
   async handleLogin () {
     const {name, password} = this.state
     this.setState({loading: true})
-    await login({
-      name, password
-    })
+    try {
+      const res = await UserService.login({ name, password })
+      const aa = await UserService.getList({token: res.token})
+      // AsyncStorage.getItem('isLogin')
+    } catch (e) {
+      Alert.alert(e.message)
+    }
   }
   render () {
     const {name, password, loading} = this.state

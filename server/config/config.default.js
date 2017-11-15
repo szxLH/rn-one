@@ -14,7 +14,14 @@ module.exports = appInfo => {
       enable: false,
       // headerName: 'x-csrf-token',
       // domainWhiteList: ['localhost:8081']
-    }
+    },
+  };
+
+  config.jwt = {
+    secret: 'szxlh',
+    enable: true,
+    // match: '',
+    match: '/list',
   };
 
   return config;
