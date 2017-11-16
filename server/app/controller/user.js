@@ -15,8 +15,12 @@ class UserController extends Controller {
     // const { secret } = this.config.jwt;
     try {
       const { name, password } = data;
-      const user = await this.ctx.model.User.find({ userName: name });
-      if (!user.length) {
+      const user = await this.ctx.model.User.findOne({ userName: name });
+      let isMatch = false;
+      // let token = null;
+      user && (isMatch = await user.comparePassword(password));
+      // isMatch && (token = await this.service.utils.createToken(user));
+      if (!isMatch) {
         this.ctx.body = {
           code: 1,
           message: '用户名或密码错误！',
@@ -24,12 +28,14 @@ class UserController extends Controller {
       } else {
         this.ctx.body = {
           code: 0,
-          data: {},
+          // data: { token },
           message: '登录成功',
         };
       }
     } catch (e) {
-      this.ctx.body = this.service.utils.parseError(e);
+      console.log('e======', e)
+      // this.ctx.body = this.service.utils.parseError(e);
+      this.ctx.body = {code: 1};
     }
     // const token = await this.app.jwt.sign({name}, secret, {expiresIn: 60});
   }

@@ -48,5 +48,9 @@ module.exports = app => {
     }
   });
 
+  UserSchema.methods.comparePassword = function(password) {
+    return bcrypt.compare(password, this.password);
+  };
+
   return mongoose.model('User', UserSchema);
 };

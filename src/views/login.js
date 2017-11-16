@@ -54,6 +54,7 @@ export default class Login extends React.Component {
         } else {
           Alert.alert(res.message)
         }
+        console.log('res=====', res)
       // const aa = await UserService.getList({token: res.token})
       // AsyncStorage.getItem('isLogin')
     } catch (e) {
