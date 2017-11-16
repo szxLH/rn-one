@@ -14,7 +14,10 @@ class utilsService extends Service {
   }
 
   createToken(user) {
-    return this.app.jwt({ name: user.userName }, this.app.config.jwt.secret, {
+    return this.app.jwt.sign({ 
+      id: user._id,
+      secret: user.user_secret
+    }, this.app.config.jwt.secret, {
       expiresIn: 2 * 60,
     });
   }

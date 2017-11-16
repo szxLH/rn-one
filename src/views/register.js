@@ -3,6 +3,7 @@ import Header from '../components/header'
 import Hot from './hot'
 import {defaultStyles} from '../assets/styles'
 import * as UserService from '../service/user'
+import Login from './login'
 import {
   List,
   Button,
@@ -35,14 +36,22 @@ export default class Register extends React.Component {
         right: null
       }
     }
-  }  
+  }
+
+  async componentWillMount () {
+    console.log('==============')
+    Alert.alert('will mount, please turn to hot')
+    const ctoken = await AsyncStorage.getItem('ctoken')
+    console.log('ctoken==', ctoken)
+  }
 
   async handleRegister () {
+    const {navigator} = this.props
     const {name, password} = this.state
     this.setState({loading: true})
     try {
-      const res = await UserService.register({name, password})
-      Alert.alert(res.message)
+      await UserService.register({name, password})
+      navigator.push({component: Login})
     } catch (e) {
       Alert.alert(e.message)
     }

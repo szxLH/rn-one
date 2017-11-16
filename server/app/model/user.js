@@ -14,7 +14,7 @@ module.exports = app => {
   };
 
   const UserSchema = new mongoose.Schema({
-    userName: {
+    user_name: {
       type: String,
       required: true,
       unique: true,
@@ -23,7 +23,7 @@ module.exports = app => {
       type: String,
       required: true,
     },
-    userSecret: {
+    user_secret: {
       type: String,
       default: getHmac(),
     },

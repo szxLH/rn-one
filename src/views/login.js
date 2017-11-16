@@ -45,6 +45,7 @@ export default class Login extends React.Component {
   }
 
   async handleLogin () {
+    const {navigator} = this.props
     const {name, password} = this.state
     this.setState({loading: true})
     try {
@@ -52,7 +53,9 @@ export default class Login extends React.Component {
         if (res.code === 1) {
           Alert.alert(res.message)
         } else {
-          Alert.alert(res.message)
+          await AsyncStorage.setItem('ctoken', res.data.token)
+          console.log('navigator=====', navigator)
+          navigator.pop()
         }
         console.log('res=====', res)
       // const aa = await UserService.getList({token: res.token})

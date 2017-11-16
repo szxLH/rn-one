@@ -12,38 +12,34 @@ class UserController extends Controller {
 
   async login() {
     const { data } = this.ctx.request.body;
-    // const { secret } = this.config.jwt;
     try {
       const { name, password } = data;
-      const user = await this.ctx.model.User.findOne({ userName: name });
+      const user = await this.ctx.model.User.findOne({ user_name: name });
       let isMatch = false;
-      // let token = null;
       user && (isMatch = await user.comparePassword(password));
-      // isMatch && (token = await this.service.utils.createToken(user));
       if (!isMatch) {
         this.ctx.body = {
           code: 1,
           message: '用户名或密码错误！',
         };
       } else {
+        const token = await this.service.utils.createToken(user)
         this.ctx.body = {
           code: 0,
-          // data: { token },
+          data: { token },
           message: '登录成功',
         };
       }
     } catch (e) {
       console.log('e======', e)
-      // this.ctx.body = this.service.utils.parseError(e);
-      this.ctx.body = {code: 1};
+      this.ctx.body = this.service.utils.parseEroor(e);
     }
-    // const token = await this.app.jwt.sign({name}, secret, {expiresIn: 60});
   }
 
   async register() {
     const { data } = this.ctx.request.body;
     const { name, password } = data;
-    const user = await this.app.model.User.find({ userName: name });
+    const user = await this.app.model.User.find({ user_name: name });
     if (user && user.length) {
       this.ctx.body = {
         code: 1,
@@ -51,7 +47,7 @@ class UserController extends Controller {
       };
     } else {
       const newUser = new this.ctx.model.User({
-        userName: name,
+        user_name: name,
         password,
       });
       await newUser.save();
