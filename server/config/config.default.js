@@ -24,5 +24,10 @@ module.exports = appInfo => {
     match: '/list',
   };
 
+  config.mongoose = {
+    enable: true,
+    url: 'mongodb://127.0.0.1/rnMovies',
+  };
+
   return config;
 };

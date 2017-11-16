@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../components/header'
 import {defaultStyles} from '../assets/styles'
 import Login from './login'
+import Register from './register'
 import {
   View,
   Text

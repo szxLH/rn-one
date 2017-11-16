@@ -6,6 +6,7 @@ import {px2dp} from '../utils'
 import {blueColor} from '../assets/styles'
 import {deviceWidthDp} from '../utils'
 import * as UserService from '../service/user'
+import Register from './register'
 import {
   List,
   Button,
@@ -42,25 +43,33 @@ export default class Login extends React.Component {
       loading: false
     }
   }
+
   async handleLogin () {
     const {name, password} = this.state
     this.setState({loading: true})
     try {
-      const res = await UserService.login({ name, password })
-      const aa = await UserService.getList({token: res.token})
+        const res = await UserService.login({ name, password })
+        if (res.code === 1) {
+          Alert.alert(res.message)
+        } else {
+          Alert.alert(res.message)
+        }
+      // const aa = await UserService.getList({token: res.token})
       // AsyncStorage.getItem('isLogin')
     } catch (e) {
       Alert.alert(e.message)
     }
+    this.setState({loading: false})
   }
   render () {
+    const {navigator} = this.props
     const {name, password, loading} = this.state
     return (
       <View style={defaultStyles.pageContainer}>
         <Header header={this.state.header}/>
         <List style={{marginTop: 60, marginBottom: 20}}>
           <InputItem
-            placeholder="Email/手机号"
+            placeholder="用户名"
             onChange={v => this.setState({name: v})}
             clear
           ></InputItem>
@@ -80,7 +89,7 @@ export default class Login extends React.Component {
           >登录</Button>
         </WingBlank>
         <View style={styles.footer}>
-          <Text style={styles.footerText}>注册账号</Text>
+          <Text style={styles.footerText} onPress={() => {navigator.push({component: Register})}}>注册账号</Text>
           <Text style={{marginHorizontal: 10}}>|</Text>
           <Text style={styles.footerText}>忘记密码</Text>
         </View>
@@ -92,7 +101,7 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
   footer: {
     position: 'absolute',
-    bottom: px2dp(30),
+    bottom: px2dp(50),
     width: deviceWidthDp,
     flexDirection: 'row',
     justifyContent: 'center',

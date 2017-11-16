@@ -7,8 +7,8 @@ module.exports = {
     enabled: true,
     package: 'egg-jwt',
   },
-  cors: {
-    enable: true,
-    package: 'egg-cors'
-  }
+  mongoose: {
+    enabled: true,
+    package: 'egg-mongoose',
+  },
 };

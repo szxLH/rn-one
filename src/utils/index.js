@@ -1,9 +1,10 @@
-import {Dimensions} from 'react-native'
+import {Dimensions, Platform} from 'react-native'
 import {baseUrl, timeout} from '../config'
 import axios from 'axios'
 
 // axios.defaults.xsrfHeaderName = "X-CSRFToken"
 
+const BASE_URL = baseUrl[Platform.OS]
 export const deviceHeightDp = Dimensions.get('window').height
 
 export const deviceWidthDp = Dimensions.get('window').width
@@ -15,8 +16,7 @@ export function px2dp(uiElementPx) {
 }
 
 export function httpGet (path, header) {
-  console.log('header====', header)
-  return axios.get(`${baseUrl}${path}`, {
+  return axios.get(`${BASE_URL}${path}`, {
     headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer ' + header.token
@@ -25,28 +25,27 @@ export function httpGet (path, header) {
     timeout
   })
   .then(function (response) {
-    console.log('response====', response)
     return response.data
   })
-  .catch(function (error) {
-    console.log(error);
-  })
+  // .catch(function (error) {
+  //   console.log(error);
+  // })
 }
 
 export function httpPost (path, body) {
-  return axios.post(`${baseUrl}${path}`, {
-    data: JSON.stringify(body),
+  return axios.post(`${BASE_URL}${path}`, {
+    // data: JSON.stringify(body),
+    data: body,
     headers: {
       'Content-Type': 'application/json', 
       'Accept': 'application/json',
-      // 'x-csrf-token': Cookie.get('csrfToken')
     },
     timeout
   })
   .then(function (response) {
     return response.data
   })
-  .catch(function (error) {
-    console.log(error);
-  })
+  // .catch(function (error) {
+  //   console.log('message===', error.message);
+  // })
 }

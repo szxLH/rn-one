@@ -4,12 +4,17 @@ export function login (user) {
   return httpPost(url, user)
 }
 
-export function getList (header) {
-  const url = '/list'
-  return httpGet(url, header)
+export function register (user) {
+  const url = '/user/register'
+  return httpPost(url, user)
 }
 
-export function patchList () {
-  const url = '/list'
-  return httpPost(url, {id: 2})
-}
+// export function getList (header) {
+//   const url = '/list'
+//   return httpGet(url, header)
+// }
+
+// export function patchList () {
+//   const url = '/list'
+//   return httpPost(url, {id: 2})
+// }
