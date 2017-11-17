@@ -54,12 +54,9 @@ export default class Login extends React.Component {
           Alert.alert(res.message)
         } else {
           await AsyncStorage.setItem('ctoken', res.data.token)
-          console.log('navigator=====', navigator)
+          await AsyncStorage.setItem('login_status', true)
           navigator.pop()
         }
-        console.log('res=====', res)
-      // const aa = await UserService.getList({token: res.token})
-      // AsyncStorage.getItem('isLogin')
     } catch (e) {
       Alert.alert(e.message)
     }
